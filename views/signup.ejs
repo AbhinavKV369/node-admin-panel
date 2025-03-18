@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup Page</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Signup</h1>
+
+    <% if(errorMessage) { %>
+      <p>
+        <%= errorMessage %>
+      </p>
+      <% } else if (message){ %>
+        <p>
+          <%= message %>
+        </p>
+        <% } %>
+            <form action="/signup" method="post" enctype="multipart/form-data">
+              <label for="name">Username</label>
+              <input type="text" name="name" required />
+              <label for="email">Email</label>
+              <input type="email" name="email" required />
+              <label for="password">Password</label>
+              <input type="password" name="password" required />
+              <label for="picture">Picture</label>
+              <input type="file" name="picture" class="picture" />
+              <button type="submit">Signup</button>
+            </form>
+              <p>
+                <strong>Already have an account ?</strong><a href="/login">Login</a>
+              </p>
+  </div>
+</body>
+
+</html>

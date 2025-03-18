@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <%- include("partials/head") %>
+</head>
+
+<body style="background: rgb(36, 33, 33);">
+  <div class="profile-container pt-5">
+    <%- include("partials/nav") %>
+    <div class="container-fluid pt-5">
+      <div class="card bg-black my-2 py-2">
+        <h1 class="text-center fw-bold text-white">Your Home Page</h1>
+        <img src="<%= user.picture ? user.picture : '/images/default.png' %>" class="mx-auto mt-2" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+        <h2 class="text-center text-white mt-3">Welcome, <%= user.isAdmin ? "Admin" : "User" %>
+        </h2>
+        <div class="pt-2">
+          <p class="text-white text-center "><strong>Username:</strong>
+            <%= user.name %>
+          </p>
+          <p class="text-white text-center"><strong>Email:</strong>
+            <%= user.email %>
+          </p>
+          <p class="text-white text-center"><strong>Bio:</strong>
+            <%= user.bio %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <%- include("partials/script") %>
+  </div>
+</body>
+
+</html>

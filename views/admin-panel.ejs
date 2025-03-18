@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <%- include("partials/head") %>
+
+</head>
+
+<body style="background: #1b1818">
+  <nav class="navbar mb-5 px-2 py-3" style="background: black">
+    <div class="heading container">
+     <h1><a class="navbar-brand fw-bold" style="color: rgb(255, 255, 255)" href="#">Admin Panel</a></h1>
+     <form action="/admin/search" method="post">
+      <div class="form-outline d-flex " data-mdb-input-init>
+        <input type="search" name="search" class="form-control" placeholder="Search User Name here" />
+        <button class="button bg-success">Search</button>
+      </div>
+     </form>
+    </div>
+    </div>
+
+  </nav>
+  <div class="table-responsive w-100% pt-2 px-3">
+    <table class="table table-bordered" style="background: rgba(0, 0, 0, 0.422); border: 2px solid white">
+      <tr class="text-center">
+        <th class="text-white bg-success">Name</th>
+        <th class="text-white bg-success">Email</th>
+        <th class="text-white bg-success">Update User</th>
+        <th class="text-white bg-success">Block/ Unblock</th>
+      </tr>
+      <% users.forEach(user=> { %>
+      <tr>
+        <td class="text-white bg-black fw-bold"><%= user.name %></td>
+        <td class="text-white bg-black fw-bold"><%= user.email %></td>
+        <td class="text-white bg-black">
+          <form action="/admin/update-profile/<%= user.id %>" method="get">
+            <button type="submit" class="text-center bg-success text-white p-2 fw-bold" style="border-radius: 10px; border: none">
+              Edit
+            </button>
+          </form>
+        </td>
+        <td class="text-white bg-black">
+          <form action="/admin/toggle-status/<%= user.id %>" method="post">
+            <button type="submit" class="text-center bg-danger text-white p-2 fw-bold" style="border-radius: 10px; border: none">
+              <%= user.status ? "Block" : "Unblock" %>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+    <div class="button text-center pb-5 p-4">
+      <button class="text-center bg-success text-white p-2 fw-bold" style="border-radius: 10px; border: none">
+        <a href="/logout" class="bg-success text-white" style="text-decoration: none">Logout</a>
+      </button>
+    </div>
+  </div>
+
+  <%- include("partials/script") %>
+</body>
+
+</html>
