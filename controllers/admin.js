@@ -25,17 +25,17 @@ async function handleSearchUser(req, res) {
     res.send("Server Error");
   }
 }
+
 async function handlePostEditUser(req, res) {
   const { name, email, bio } = req.body;
-  const picture = req.file ? "/uploads" + req.file.filename : null;
+  const picture = req.file ? "/uploads/" + req.file.filename : null;
   try {
-    const user = await User.findById(req.params.id);
-    user.name = name || user.name;
-    user.email = email || user.email;
-    user.bio = bio || user.bio;
-    if (picture) user.picture = picture;
-    await user.save();
-    res.redirect("/admin/admin-panel");
+    const updatedFields = { name,email,bio };
+    if(picture) updatedFields.picture = picture;
+    const user = await User.findByIdAndUpdate( req.params.id, updatedFields, { new: true})
+    res.render("profile-edit",{
+      user
+    });
   }catch (err) { 
     res.send("Server Error");
   }

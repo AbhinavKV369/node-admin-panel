@@ -8,7 +8,7 @@
     <%- include("partials/head") %>
 </head>
 
-<body style="background: #1b1818">
+<body style="background: #060606fb">
     <nav class="navbar mb-5 px-2 py-3" style="background: black">
         <div class="heading container">
             <h1><a class="navbar-brand fw-bold" style="color: rgb(255, 255, 255)" href="#">Edit User Profile</a></h1>
@@ -16,28 +16,27 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <form action="/admin/update-profile/<%= user._id %>" method="POST" enctype="multipart/form-data">
+    <div class="container  mt-1">
+        <form action="/admin/update-profile/<%= user._id %>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name" class="text-white">Name</label>
                 <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required />
             </div>
 
-            <div class="form-group mt-3">
+            <div class="form-group  mt-1">
                 <label for="email" class="text-white">Email</label>
                 <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" required />
             </div>
 
-            <div class="form-group mt-3">
+            <div class="form-group mt-1">
                 <label for="bio" class="text-white">Bio</label>
-                <textarea id="bio" name="bio" class="form-control" rows="4"><%= user.bio || '' %></textarea>
+                <textarea id="bio" name="bio" class="form-control" rows="4"><%= user.bio %></textarea>
             </div>
 
             <div class="form-group mt-3">
                 <label for="picture" class="text-white">Profile Picture</label>
                 <input type="file" id="picture" name="picture" class="form-control" />
-                <p class="text-white mt-2">Current Picture: <img src="<%= user.picture %>" alt="Profile Picture"
-                        width="50" height="50" /></p>
+                <p class="text-white mt-2">Current Picture: <img src="<%= user.picture ? user.picture : "null" %>" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"  /></p>
             </div>
 
             <button type="submit" class="btn btn-success mt-4">Save Changes</button>

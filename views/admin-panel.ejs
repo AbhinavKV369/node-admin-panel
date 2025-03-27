@@ -36,16 +36,25 @@
         <td class="text-white bg-black fw-bold"><%= user.name %></td>
         <td class="text-white bg-black fw-bold"><%= user.email %></td>
         <td class="text-white bg-black">
-          <form action="/admin/update-profile/<%= user.id %>" method="get">
+          <form action="/admin/update-profile/<%= user.id %>" method="post">
+            <% if(!user.isAdmin){ %>
             <button type="submit" class="text-center bg-success text-white p-2 fw-bold" style="border-radius: 10px; border: none">
               Edit
             </button>
+            <% }else{ %>
+              <p class="text-danger">Admin</p>
+           <% } %>
           </form>
         </td>
         <td class="text-white bg-black">
           <form action="/admin/toggle-status/<%= user.id %>" method="post">
-            <button type="submit" class="text-center bg-danger text-white p-2 fw-bold" style="border-radius: 10px; border: none">
-              <%= user.status ? "Block" : "Unblock" %>
+              <% if(!user.isAdmin){ %>
+                      <button type="submit" class="text-center bg-danger text-white p-2 fw-bold" style="border-radius: 10px; border: none">
+                        <%= user.status ? "Block" : "Unblock" %>
+                </button>
+                <% }else{ %>
+                  <p class="text-danger">Admin</p>
+                <% } %>
             </button>
           </form>
         </td>

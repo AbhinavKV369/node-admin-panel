@@ -26,7 +26,6 @@ async function handlePostSignup(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const otpCode = generateOTP();
-
     const newUser = new User({
       name,
       email,
@@ -44,8 +43,8 @@ async function handlePostSignup(req, res) {
       message: "OTP sent. Please verify OTP.",
       showOtpField: true,
     });
+
   } catch (err) {
-    console.error("Error occurred while registering user:", err);
     return res.render("signup", {
       errorMessage: "Error occurred while registering user.",
     });
@@ -70,7 +69,6 @@ async function handleVerifyOTP(req, res) {
         errorMessage: "Invalid OTP",
         message: null,
       });
-
     } 
     else if (user.otpExpires < Date.now()) {
       return res.render("verify-otp", {
@@ -79,6 +77,7 @@ async function handleVerifyOTP(req, res) {
         message: null,
       });
     }
+
     user.otp == otp;
     user.isVerified = true;
     user.otp = undefined;
@@ -101,6 +100,7 @@ async function handlePostLogin(req, res) {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.render("login", {
         errorMessage: "User not found",
@@ -129,10 +129,10 @@ async function handlePostLogin(req, res) {
     res.cookie("token", token, {
       httpOnly: true,
     });
+
     res.redirect("/dashboard");
     console.log("Login successful");
   } catch (err) {
-    console.log("Error on login", err);
     res.render("login", {
       errorMessage: "Server error",
     });
@@ -176,13 +176,16 @@ async function handleUpdateProfile(req, res) {
     const user = await User.findByIdAndUpdate(req.user.id, updatedFields, {
       new: true,
     });
+
     if (!user) {
       return res.status(404).send("User not found");
     }
+
     res.render("profile", {
       user,
       successMessage: "Profile updated successfully",
     });
+    
   } catch (err) {
     console.log("Error occurred while updating the profile", err);
     res.status(500).send("Server Error");
